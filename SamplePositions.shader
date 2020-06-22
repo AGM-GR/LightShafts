@@ -40,7 +40,7 @@ half4 frag (v2f i) : COLOR
 	int2 loc = floor(tex2D(_Coord, i.uv).xy*_OutputTexDim.xy);
 	if (_SampleType == all(tex2D(_InterpolationEpi, i.uv).xy))
 		_OutputTex[loc] = _Color;
-	
+
 	return 0;
 }
 
