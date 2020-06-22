@@ -17,7 +17,7 @@ Check out this repo into a subfolder of your Unity project (visible meta files),
 
 Light shafts should work on Windows (DX9 and DX11) and OSX.
 
-Version 2. Verified in Unity versions 4.5.5f1 - 5.6.0f3.
+Version 2. Verified in Unity version 2019.4.0f1 LTS
 
 Usage
 -----
