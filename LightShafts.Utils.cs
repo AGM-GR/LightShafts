@@ -46,7 +46,7 @@ public partial class LightShafts : MonoBehaviour {
             Transform t = transform;
             Light l = m_Light;
             Gizmos.matrix = Matrix4x4.TRS(t.position, t.rotation, Vector3.one);
-            Gizmos.DrawFrustum(t.position, l.spotAngle, l.range * m_SpotFar, l.range * m_SpotNear, 1);
+            Gizmos.DrawFrustum(Vector3.zero, l.spotAngle, l.range * m_SpotFar, l.range * m_SpotNear, 1);
         }
     }
 
