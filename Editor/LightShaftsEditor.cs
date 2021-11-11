@@ -74,7 +74,7 @@ class LightShaftsEditor : Editor {
         brightnessColored.floatValue = Mathf.Max(0, brightnessColored.floatValue);
         minDistFromCamera.floatValue = Mathf.Max(0, minDistFromCamera.floatValue);
 
-        float minNear = 0.05f;
+        float minNear = 0.0001f;
         far.floatValue = Mathf.Clamp(far.floatValue, minNear, 1.0f);
         near.floatValue = Mathf.Clamp(near.floatValue, minNear, far.floatValue);
     }
