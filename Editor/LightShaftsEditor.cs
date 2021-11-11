@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(LightShafts))]
+[CustomEditor(typeof(LightShafts)), CanEditMultipleObjects]
 class LightShaftsEditor : Editor {
     SerializedProperty cameras;
     SerializedProperty shadowmapMode;
