@@ -235,6 +235,23 @@ public partial class LightShafts : MonoBehaviour {
 
         ShowSamples(width, height, lightPos);
 
+        Shader.DisableKeyword("LS_FOG_LINEAR");
+        Shader.DisableKeyword("LS_FOG_EXP");
+        Shader.DisableKeyword("LS_FOG_EXP2");
+        if (RenderSettings.fog) {
+            switch (RenderSettings.fogMode) {
+                case FogMode.Linear: 
+                    Shader.EnableKeyword("LS_FOG_LINEAR"); 
+                    break;
+                case FogMode.Exponential: 
+                    Shader.EnableKeyword("LS_FOG_EXP"); 
+                    break;
+                case FogMode.ExponentialSquared: 
+                    Shader.EnableKeyword("LS_FOG_EXP2"); 
+                    break;
+            };
+        }
+
         // Final interpolation and blending onto the screen
         SetFrustumRays(m_FinalInterpolationMaterial);
         m_FinalInterpolationMaterial.SetTexture(InterpolationEpi, m_InterpolationEpi);
