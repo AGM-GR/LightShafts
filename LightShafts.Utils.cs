@@ -24,6 +24,24 @@ public partial class LightShafts : MonoBehaviour {
         return new Bounds(offset, new Vector3(baseSize, baseSize, height));
     }
 
+    Bounds GetBounds() {
+        if (directional)
+            return new Bounds(new Vector3(0, 0, m_Size.z * 0.5f), m_Size);
+
+        Light l = m_Light;
+        float offset = l.range * (m_SpotFar + m_SpotNear) * 0.5f;
+        float height = m_SpotFar * l.range;
+        float baseSize = Mathf.Tan(l.spotAngle * Mathf.Deg2Rad * 0.5f) * m_SpotFar * l.range;
+
+        return GeometryUtility.CalculateBounds(new Vector3[]{
+            Vector3.forward * l.range * m_SpotNear,
+            Vector3.forward * height + Vector3.up * baseSize,
+            Vector3.forward * height + -Vector3.up * baseSize,
+            Vector3.forward * height + Vector3.right * baseSize,
+            Vector3.forward * height + -Vector3.right * baseSize
+            }, Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one));
+    }
+
     Matrix4x4 GetBoundsMatrix() {
         Bounds bounds = GetBoundsLocal();
         Transform t = transform;
@@ -100,8 +118,7 @@ public partial class LightShafts : MonoBehaviour {
 
     bool IsVisible() {
         // Intersect against spot light's OBB (or light frustum's OBB), so AABB in it's space
-        Matrix4x4 lightToCameraProjection = m_CurrentCamera.projectionMatrix * m_CurrentCamera.worldToCameraMatrix * transform.localToWorldMatrix;
-        return GeometryUtility.TestPlanesAABB(GeometryUtility.CalculateFrustumPlanes(lightToCameraProjection), GetBoundsLocal());
+        return GeometryUtility.TestPlanesAABB(GeometryUtility.CalculateFrustumPlanes(m_CurrentCamera), GetBounds());
     }
 
     bool IntersectsNearPlane() {
